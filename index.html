@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sistema de Gestión de Citas Médicas - Clínica" />
+  <title>MediCitas · Sistema de Gestión de Citas Médicas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a3d3d'/%3E%3Cpath d='M50 25v50M25 50h50' stroke='%23e8d5a4' stroke-width='10' stroke-linecap='round'/%3E%3C/svg%3E">
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <section id="loginScreen" class="login-screen">
+    <div class="login-bg">
+      <div class="bg-shape shape-1"></div>
+      <div class="bg-shape shape-2"></div>
+      <div class="bg-shape shape-3"></div>
+    </div>
+
+    <div class="login-card">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 40 40" fill="none">
+            <rect width="40" height="40" rx="9" fill="currentColor"/>
+            <path d="M20 10v20M10 20h20" stroke="#e8d5a4" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-name">MediCitas</h1>
+          <p class="brand-sub">Gestión clínica integral</p>
+        </div>
+      </div>
+
+      <h2 class="login-title">Bienvenido<br/><em>de vuelta</em></h2>
+      <p class="login-desc">Ingresa tus credenciales para acceder al sistema de gestión de citas.</p>
+
+      <form id="loginForm" class="login-form" autocomplete="off">
+        <label class="field">
+          <span class="field-label">Usuario</span>
+          <input type="text" id="loginUser" placeholder="admin / medico / recepcion" required />
+        </label>
+        <label class="field">
+          <span class="field-label">Contraseña</span>
+          <input type="password" id="loginPass" placeholder="••••••••" required />
+        </label>
+        <button type="submit" class="btn btn-primary btn-block">
+          <span>Iniciar sesión</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+        <p id="loginError" class="login-error" hidden>Usuario o contraseña incorrectos.</p>
+      </form>
+
+      <div class="login-help">
+        <p class="help-title">Usuarios de prueba</p>
+        <div class="help-grid">
+          <div><strong>admin</strong> / admin123</div>
+          <div><strong>medico</strong> / medico123</div>
+          <div><strong>recepcion</strong> / recep123</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- APP -->
+  <div id="app" class="app" hidden>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mark sm">
+          <svg viewBox="0 0 40 40" fill="none">
+            <rect width="40" height="40" rx="9" fill="currentColor"/>
+            <path d="M20 10v20M10 20h20" stroke="#e8d5a4" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-name sm">MediCitas</h1>
+          <p class="brand-sub sm">Panel de gestión</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item active" data-view="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+          <span>Inicio</span>
+        </button>
+        <button class="nav-item" data-view="citas">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <span>Citas</span>
+        </button>
+        <button class="nav-item" data-view="pacientes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Pacientes</span>
+        </button>
+        <button class="nav-item" data-view="medicos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 14c1.5 0 3-1 3-3s-1.5-3-3-3-3 1-3 3 1.5 3 3 3z"/><path d="M5 14c1.5 0 3-1 3-3S6.5 8 5 8s-3 1-3 3 1.5 3 3 3z"/><path d="M5 14v7M19 14v7M9 8V3M15 8V3"/></svg>
+          <span>Médicos</span>
+        </button>
+        <button class="nav-item" data-view="agenda">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span>Agenda</span>
+        </button>
+        <button class="nav-item" data-view="reportes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 3 5-7"/></svg>
+          <span>Reportes</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-chip">
+          <div class="user-avatar" id="userAvatar">A</div>
+          <div class="user-meta">
+            <div class="user-name" id="userName">Administrador</div>
+            <div class="user-role" id="userRole">admin</div>
+          </div>
+        </div>
+        <button id="logoutBtn" class="logout-btn" title="Cerrar sesión">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        </button>
+      </div>
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- DASHBOARD -->
+      <section class="view active" data-view="dashboard">
+        <header class="view-header">
+          <div>
+            <p class="kicker">Inicio</p>
+            <h2 class="view-title">Resumen <em>del día</em></h2>
+            <p class="view-sub" id="todayLabel">—</p>
+          </div>
+          <button class="btn btn-primary" data-action="nuevaCita">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+            <span>Nueva cita</span>
+          </button>
+        </header>
+
+        <div class="stats">
+          <article class="stat">
+            <span class="stat-label">Citas hoy</span>
+            <strong class="stat-value" id="statCitasHoy">0</strong>
+            <span class="stat-foot">programadas para esta jornada</span>
+          </article>
+          <article class="stat accent">
+            <span class="stat-label">Pacientes</span>
+            <strong class="stat-value" id="statPacientes">0</strong>
+            <span class="stat-foot">registrados en el sistema</span>
+          </article>
+          <article class="stat">
+            <span class="stat-label">Médicos</span>
+            <strong class="stat-value" id="statMedicos">0</strong>
+            <span class="stat-foot">activos en agenda</span>
+          </article>
+          <article class="stat dark">
+            <span class="stat-label">Esta semana</span>
+            <strong class="stat-value" id="statSemana">0</strong>
+            <span class="stat-foot">citas en los próximos 7 días</span>
+          </article>
+        </div>
+
+        <div class="dash-grid">
+          <article class="panel">
+            <header class="panel-header">
+              <h3>Próximas citas</h3>
+              <button class="link" data-view="citas">Ver todas →</button>
+            </header>
+            <div id="proximasCitas" class="upcoming"></div>
+          </article>
+
+          <article class="panel">
+            <header class="panel-header">
+              <h3>Distribución por estado</h3>
+            </header>
+            <div id="estadoDist" class="dist"></div>
+          </article>
+        </div>
+      </section>
+
+
+      <!-- CITAS -->
+      <section class="view" data-view="citas">
+        <header class="view-header">
+          <div>
+            <p class="kicker">Citas</p>
+            <h2 class="view-title">Gestión <em>de citas</em></h2>
+            <p class="view-sub">Programa, reprograma y cancela citas médicas.</p>
+          </div>
+          <button class="btn btn-primary" data-action="nuevaCita">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+            <span>Nueva cita</span>
+          </button>
+        </header>
+
+        <div class="filters">
+          <input type="search" id="filtroCitas" placeholder="Buscar por paciente, médico, fecha…" class="search" />
+          <select id="filtroEstado" class="select-mini">
+            <option value="">Todos los estados</option>
+            <option value="Programada">Programada</option>
+            <option value="Cancelada">Cancelada</option>
+            <option value="Completada">Completada</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Paciente</th>
+                <th>Médico</th>
+                <th>Motivo</th>
+                <th>Estado</th>
+                <th class="th-actions">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="citasBody"></tbody>
+          </table>
+          <div id="citasEmpty" class="empty" hidden>
+            <p>No hay citas para mostrar.</p>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- PACIENTES -->
+      <section class="view" data-view="pacientes">
+        <header class="view-header">
+          <div>
+            <p class="kicker">Pacientes</p>
+            <h2 class="view-title">Registro <em>de pacientes</em></h2>
+            <p class="view-sub">Datos básicos de los pacientes de la clínica.</p>
+          </div>
+          <button class="btn btn-primary" data-action="nuevoPaciente">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+            <span>Nuevo paciente</span>
+          </button>
+        </header>
+
+        <div class="filters">
+          <input type="search" id="filtroPacientes" placeholder="Buscar por nombre, documento o teléfono…" class="search" />
+        </div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Documento</th>
+                <th>Nombre completo</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Fecha nac.</th>
+                <th class="th-actions">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="pacientesBody"></tbody>
+          </table>
+          <div id="pacientesEmpty" class="empty" hidden>
+            <p>Aún no hay pacientes registrados.</p>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- MÉDICOS -->
+      <section class="view" data-view="medicos">
+        <header class="view-header">
+          <div>
+            <p class="kicker">Médicos</p>
+            <h2 class="view-title">Cuerpo <em>médico</em></h2>
+            <p class="view-sub">Especialistas y horarios disponibles.</p>
+          </div>
+          <button class="btn btn-primary" data-action="nuevoMedico">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+            <span>Nuevo médico</span>
+          </button>
+        </header>
+
+        <div id="medicosGrid" class="medicos-grid"></div>
+        <div id="medicosEmpty" class="empty" hidden>
+          <p>Aún no hay médicos registrados.</p>
+        </div>
+      </section>
+
+
+      <!-- AGENDA -->
+      <section class="view" data-view="agenda">
+        <header class="view-header">
+          <div>
+            <p class="kicker">Agenda</p>
+            <h2 class="view-title">Horarios <em>disponibles</em></h2>
+            <p class="view-sub">Selecciona un médico y una fecha para ver disponibilidad.</p>
+          </div>
+        </header>
+
+        <div class="agenda-controls">
+          <label class="field">
+            <span class="field-label">Médico</span>
+            <select id="agendaMedico" class="select"></select>
+          </label>
+          <label class="field">
+            <span class="field-label">Fecha</span>
+            <input type="date" id="agendaFecha" class="input"/>
+          </label>
+        </div>
+
+        <div id="agendaSlots" class="slots"></div>
+        <div id="agendaEmpty" class="empty" hidden>
+          <p>Selecciona un médico y una fecha para ver los horarios.</p>
+        </div>
+      </section>
+
+
+      <!-- REPORTES -->
+      <section class="view" data-view="reportes">
+        <header class="view-header">
+          <div>
+            <p class="kicker">Reportes</p>
+            <h2 class="view-title">Citas <em>por día</em></h2>
+            <p class="view-sub">Reporte de citas asignadas en una fecha específica.</p>
+          </div>
+        </header>
+
+        <div class="reportes-controls">
+          <label class="field">
+            <span class="field-label">Fecha del reporte</span>
+            <input type="date" id="reporteFecha" class="input"/>
+          </label>
+          <button id="exportCSV" class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <span>Exportar CSV</span>
+          </button>
+        </div>
+
+        <div class="reporte-summary" id="reporteSummary"></div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Hora</th>
+                <th>Paciente</th>
+                <th>Médico</th>
+                <th>Motivo</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="reporteBody"></tbody>
+          </table>
+          <div id="reporteEmpty" class="empty" hidden>
+            <p>No hay citas para esta fecha.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+
+  <!-- MODAL -->
+  <div id="modal" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <header class="modal-header">
+        <h3 id="modalTitle">Título</h3>
+        <button class="icon-btn" data-close aria-label="Cerrar">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </header>
+      <div id="modalBody" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
