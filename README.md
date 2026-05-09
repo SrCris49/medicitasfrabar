@@ -1,6 +1,6 @@
 # MediCitas — Sistema de Gestión de Citas Médicas
 
-Aplicación web para la gestión de citas médicas de una clínica. Cumple los requerimientos del **Documento de Requerimientos del Sistema (Equipo N°2)**.
+Aplicación web para la gestión de citas médicas de una clínica. Cumple los requerimientos del **Documento de Requerimientos del Sistema**.
 
 > 100% estática: HTML + CSS + JavaScript. Sin backend, sin base de datos, sin dependencias. Persistencia en `localStorage` del navegador. Se despliega gratis en **Cloudflare Pages** en menos de 5 minutos.
 
@@ -100,20 +100,5 @@ Luego abre `http://localhost:8080`.
 
 ---
 
-## ⚠️ Notas importantes sobre `localStorage`
-
-- Los datos (pacientes, médicos, citas) se guardan **en el navegador del usuario**, no en un servidor.
-- Esto es intencional para mantener el costo en **$0** y respetar el alcance de un MVP académico.
-- Si abres la app en otro dispositivo o navegador, no verás los mismos datos.
-- Para una versión multiusuario real, habría que añadir un backend (ej: Cloudflare Workers + KV o D1, también gratis).
-
----
-
-## 🎨 Diseño
-
-Estética editorial cálida en tonos petróleo y dorado, tipografía *Fraunces* (display) + *Inter Tight* (body). Diseñado para sentirse profesional y clínico sin caer en lo genérico.
-
----
-
-**Equipo N°2 — Análisis y Diseño de Sistemas**
+**Equipo — Análisis y Diseño de Sistemas**
 Cristian Camilo Barragan Yagama · Maria Camila Franco Morales
